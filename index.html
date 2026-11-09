@@ -3796,6 +3796,11 @@
 
       <div class="divider"></div>
 
+      <!-- NÚT BẬT/TẮT THANH TỌA ĐỘ CON TRỎ (MẶC ĐỊNH ẨN CHO ĐỠ VƯỚNG) -->
+      <button class="btn" id="btnToggleCoords" onclick="toggleCursorCoordinates()" title="Bật / Ẩn thanh và badge tọa độ con trỏ thời gian thực (Mặc định ẩn cho đỡ vướng)">
+        📍 Tọa Độ (Tắt)
+      </button>
+
       <button class="btn btn-cyan" onclick="openCoordinatesTableModal()" title="Bảng tra cứu tọa độ định vị chi tiết 32 ngôi mộ" style="font-weight:700;">
         🎯 Tọa Độ CAD
       </button>
@@ -4507,7 +4512,7 @@
       </svg>
 
       <!-- HUD BAR DƯỚI ĐÁY -->
-      <div class="hud-bar">
+      <div class="hud-bar" id="cadBottomHud" style="display:none;">
         <div>
           <span>Tọa độ con trỏ: </span>
           <strong id="hudCursor" style="color:var(--text-main); font-family:'Consolas',monospace;">X: 0.00m | Y: 0.00m</strong>
@@ -5309,6 +5314,7 @@
     let mongOffset = 10; // Móng mộ căn cứ vào đá: thêm 20cm so với tổng chiều đá (mỗi mép ngoài đá 10cm) // Móng mộ mỗi chiều cộng thêm so với đá là 20cm (mỗi bên mở rộng 10cm)
     let showStoneGraves = true; // Tùy chọn hiển thị lớp mộ đá khối
     let showGraveCoords = false; // Tùy chọn hiển thị tọa độ X-Y trên thân mộ
+    let showCursorCoords = false; // MẶC ĐỊNH ẨN THANH / BADGE TỌA ĐỘ CON TRỎ CHO ĐỠ VƯỚNG (THEO YÊU CẦU)
     let showAllLabels = false;
     // BỘ ĐẾM 10 GIÂY TỰ ĐỘNG THU GỌN THÔNG TIN CHI TIẾT (GIỮ NGUYÊN NHÃN MỘ)
     let selectionAutoClearTimer = null;
@@ -6568,6 +6574,32 @@
 
     // VẼ CÁC NGÔI MỘ (HỖ TRỢ MÓNG +20CM VÀ CHẾ ĐỘ MÓNG THI CÔNG)
     
+    
+    // HÀM BẬT/TẮT THANH VÀ BADGE HIỂN THỊ TỌA ĐỘ CON TRỎ
+    function toggleCursorCoordinates() {
+      showCursorCoords = !showCursorCoords;
+      const btn = document.getElementById('btnToggleCoords');
+      if (btn) {
+        btn.textContent = showCursorCoords ? '📍 Tọa Độ (Bật)' : '📍 Tọa Độ (Tắt)';
+        btn.style.color = showCursorCoords ? '#38bdf8' : '';
+        btn.style.borderColor = showCursorCoords ? '#38bdf8' : '';
+      }
+      const bottomHud = document.getElementById('cadBottomHud');
+      if (bottomHud) {
+        bottomHud.style.display = showCursorCoords ? 'flex' : 'none';
+      }
+      const coordBadge = document.getElementById('cursorCoordinateBadge');
+      if (coordBadge && !showCursorCoords) {
+        coordBadge.style.display = 'none';
+      }
+      const cLineH = document.getElementById('crosshairH');
+      const cLineV = document.getElementById('crosshairV');
+      if (cLineH && !showCursorCoords) cLineH.style.display = 'none';
+      if (cLineV && !showCursorCoords) cLineV.style.display = 'none';
+
+      showToast(showCursorCoords ? '📍 Đã bật thanh hiển thị tọa độ con trỏ' : 'Đã ẩn thanh tọa độ để bản vẽ thông thoáng');
+    }
+
     function toggleAllLabels() {
       showAllLabels = !showAllLabels;
       const btn = document.getElementById('btnToggleAllLabels');
@@ -9161,7 +9193,7 @@
           evt.clientY >= vpRect.top && evt.clientY <= vpRect.bottom
         );
 
-        if (isInsideVp) {
+        if (isInsideVp && showCursorCoords) {
           coordBadge.style.display = 'flex';
           let badgeLeft = evt.clientX + 16;
           let badgeTop = evt.clientY + 16;
@@ -9212,7 +9244,7 @@
       const cLineH = document.getElementById('crosshairH');
       const cLineV = document.getElementById('crosshairV');
       if (cLineH && cLineV) {
-        if (pt.x >= -50 && pt.x <= siteWidth + 50 && pt.y >= -50 && pt.y <= siteHeight + 50) {
+        if (showCursorCoords && pt.x >= -50 && pt.x <= siteWidth + 50 && pt.y >= -50 && pt.y <= siteHeight + 50) {
           cLineH.style.display = 'block';
           cLineV.style.display = 'block';
           cLineH.setAttribute('y1', pt.y);
