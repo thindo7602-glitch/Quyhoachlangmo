@@ -3,11 +3,150 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>Bản Vẽ Kỹ Thuật 2D CAD - Quy Hoạch Lăng Mộ Đá (7.35m × 11.00m • 32 ngôi mộ)</title>
+  
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-  <title>Quy Hoạch Lăng Mộ Đá - Kiến Trúc Hoàng Gia Phong Thủy Âm Trạch (7.35m × 11.00m)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Noto+Serif:ital,wght@0,700;0,900;1,700&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+
+    /* MASTER UNIFIED NAVIGATION BAR */
+    #masterTopBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 44px;
+      background: linear-gradient(90deg, #020713 0%, #06152b 50%, #030d1a 100%);
+      border-bottom: 1.5px solid rgba(56, 189, 248, 0.45);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.75), 0 0 15px rgba(56, 189, 248, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      z-index: 10000;
+      user-select: none;
+      box-sizing: border-box;
+      font-family: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    .master-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .master-logo-icon {
+      font-size: 20px;
+      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
+    }
+    .master-brand-title {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.6px;
+      color: #f8fafc;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .master-brand-badge {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.35));
+      border: 1px solid rgba(251, 191, 36, 0.6);
+      color: #fde047;
+    }
+    .master-brand-specs {
+      font-size: 10px;
+      color: #94a3b8;
+      display: inline-block;
+      margin-left: 4px;
+    }
+
+    /* MASTER MODE SWITCHER BUTTONS */
+    .master-mode-controls {
+      display: flex;
+      align-items: center;
+      background: rgba(2, 6, 23, 0.75);
+      padding: 3px 5px;
+      border-radius: 8px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+    .master-mode-tab-single {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.55);
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.45), rgba(14, 165, 233, 0.55));
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .master-mode-tab-single:hover {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.65), rgba(14, 165, 233, 0.75));
+      color: #ffffff;
+      border-color: #38bdf8;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.65);
+      transform: translateY(-1px);
+    }
+    .master-mode-tab-single.in-2d {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.5), rgba(245, 158, 11, 0.6));
+      color: #fef08a;
+      border-color: #f59e0b;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
+    }
+    .master-mode-tab .key-hint {
+      font-size: 9px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #cbd5e1;
+      font-family: monospace;
+    }
+
+    /* RIGHT ACTIONS IN TOP BAR */
+    .master-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .master-btn-action {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #cbd5e1;
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .master-btn-action:hover {
+      background: rgba(56, 189, 248, 0.22);
+      color: #fff;
+      border-color: #38bdf8;
+    }
+
+    /* VIEW CONTAINERS */
+    
+    
+
+
+
 
     /* =====================================================================
        HỆ THỐNG GIAO DIỆN ĐA PHONG CÁCH (THEME SYSTEM)
@@ -1568,6 +1707,18 @@
        - Không bị tự động phóng to màn hình trên iOS Safari (font-size >= 16px cho input)
        ===================================================================== */
     @media (max-width: 768px) {
+      /* MẶC ĐỊNH TRÊN ĐIỆN THOẠI LÀ TOÀN MÀN HÌNH: ẨN THANH CÔNG CỤ MÉP TRÊN */
+      #masterTopBar {
+        display: none !important;
+      }
+      #masterTopBar.mobile-visible {
+        display: flex !important;
+        height: 42px !important;
+        padding: 0 8px !important;
+      }
+      
+      
+
       :root {
         --header-h: 46px;
       }
@@ -3394,9 +3545,95 @@
     #selRect {
       filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.85)) drop-shadow(0 0 4px rgba(34, 211, 238, 0.6));
     }
-</style>
+
+    }
+
+
+
+    /* =====================================================================
+       CẤU HÌNH GIAO DIỆN BẢN VẼ 2D CAD THUẦN CHUYÊN NGHIỆP TOÀN MÀN HÌNH
+       ===================================================================== */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg-main, #02060e);
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    #viewContainer2D {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: block !important;
+      background: var(--bg-main, #02060e);
+      box-sizing: border-box;
+    }
+
+    /* BADGE TỌA ĐỘ CHÍNH XÁC BAY THEO CON TRỎ CHUỘT THỜI GIAN THỰC (REAL-TIME MOUSE TRACKER) */
+    .cursor-coord-badge {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999999;
+      background: rgba(7, 14, 28, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.8);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.65), 0 0 14px rgba(56, 189, 248, 0.35);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', 'Consolas', monospace;
+      color: #38bdf8;
+      display: none;
+      flex-direction: column;
+      gap: 3px;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .cursor-coord-badge .coord-primary {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #22d3ee;
+      letter-spacing: 0.2px;
+    }
+    .cursor-coord-badge .coord-secondary {
+      font-size: 10.5px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .cursor-coord-badge .coord-target {
+      font-size: 11px;
+      color: #fbbf24;
+      font-weight: 800;
+      margin-top: 2px;
+      border-top: 1px dashed rgba(251, 191, 36, 0.45);
+      padding-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ĐƯỜNG GIÓNG TRỤC X & Y CHỮ THẬP RETICLE */
+    #cadCrosshairGroup line {
+      pointer-events: none;
+      stroke: rgba(34, 211, 238, 0.35);
+      stroke-width: 0.8;
+      stroke-dasharray: 4 3;
+    }
+
+  </style>
 </head>
 <body class="theme-cad">
+  <div id="viewContainer2D">
+
 
   <!-- ============================================================ -->
   <!-- THIẾT BỊ ĐÈN PIN TRẦN TẠI VỊ TRÍ TRÊN CÙNG VÀ GIỮA ĐÓ       -->
@@ -3453,7 +3690,13 @@
           <circle cx="16" cy="18" r="2.2" fill="#fbbf24"/>
           <rect x="4" y="25" width="24" height="2.5" fill="#64748b" rx="0.5"/>
           <rect x="2" y="27.5" width="28" height="3" fill="#334155" rx="0.5"/>
-        </svg>
+        
+        <!-- ĐƯỜNG GIÓNG TỌA ĐỘ CHỮ THẬP THEO CHUỘT (CROSSHAIR LINES) -->
+        <g id="cadCrosshairGroup" pointer-events="none">
+          <line id="crosshairH" x1="-145" y1="0" x2="880" y2="0" style="display:none;"/>
+          <line id="crosshairV" x1="0" y1="-185" x2="0" y2="1290" style="display:none;"/>
+        </g>
+      </svg>
       </div>
 
       <!-- TIÊU ĐỀ THIẾT KẾ NỔI BẬT VÀ SANG TRỌNG HOÀNG GIA -->
@@ -3489,7 +3732,7 @@
         <span style="font-size:10px; font-weight:700; color:var(--text-muted); white-space:nowrap;">Mẫu:</span>
         <select id="presetSelect" class="preset-select" style="max-width:190px;" onchange="loadPreset(this.value)">
           <option value="preset2026_pdf" selected>★ Mẫu Chuẩn PDF: 29 Mộ (Cặp Cách 20cm - 7.35×11m)</option>
-          <option value="preset735" selected>★ Mẫu Chuẩn: 29 Ngôi Mộ (7.35m × 11.00m)</option>
+          <option value="preset735" selected>★ Mẫu Chuẩn: 32 ngôi mộ (7.35m × 11.00m)</option>
           <option value="rowReserve17">Mẫu Tối Ưu: 28 Mộ (7.0x11m)</option>
           <option value="grand32">Mẫu Đại Gia Tộc: 32 Mộ (7.5x12m)</option>
           <option value="standard28">Mẫu Chuẩn Bản Vẽ (28 Mộ)</option>
@@ -3510,6 +3753,11 @@
       <button class="btn" id="btnHeaderFoundationMode" onclick="toggleFoundationPlanMode()" title="Bật/Tắt chế độ chuyên dụng thi công móng (Chỉ hiển thị hố móng, giằng móng, kích thước móng)" style="font-weight:700; padding:3.5px 10px;">
         🏗️ Móng Thi Công
       </button>
+
+      <!-- NÚT MỞ ĐỒ HỌA 3D TƯƠNG TÁC -->
+      <a href="QUY_HOACH_LANG_MO_3D.html" target="_blank" class="btn" id="btnHeader3DView" title="Mở không gian Đồ Họa 3D Tương Tác: Khám phá toàn cảnh 360°, đi dạo thực tế ảo và kiểm tra các lớp móng, đá, phong thủy" style="font-weight:800; background:linear-gradient(135deg, #059669, #10b981); color:#ffffff; border:1px solid #34d399; box-shadow:0 0 14px rgba(16,185,129,0.45); padding:3.5px 10px; text-decoration:none; display:inline-flex; align-items:center; gap:5px;">
+        <span>🏛️</span> Đồ Họa 3D
+      </a>
 
       <!-- CHỌN GIAO DIỆN -->
       <select id="themeSelect" class="theme-select" style="max-width:98px;" onchange="changeTheme(this.value)" title="Chọn phong cách giao diện hiển thị">
@@ -3536,7 +3784,19 @@
       <div class="divider"></div>
 
       <!-- DỰ TOÁN KHỐI LƯỢNG -->
-      <button class="btn btn-cyan" onclick="openCoordinatesTableModal()" title="Bảng tra cứu tọa độ định vị chi tiết 29 ngôi mộ" style="font-weight:700;">
+      <!-- BẬT/TẮT NHÃN CHỮ TRÊN BẢN VẼ (MẶC ĐỊNH ẨN, NHẤN VÀO MỘ MỚI HIỆN NHÃN) -->
+      <button class="btn" id="btnToggleAllLabels" onclick="toggleAllLabels()" title="Mặc định ẩn nhãn chữ trên các ngôi mộ. Nhấp vào đây để bật/tắt toàn bộ nhãn, hoặc nhấp vào từng ngôi mộ để xem nhãn của mộ đó." style="font-weight:700;">
+        🏷️ Nhãn Chữ (Tắt)
+      </button>
+
+      <!-- LIÊN KẾT SANG TRANG 3D THỰC TẾ ẢO -->
+      <a href="https://thindo7602-glitch.github.io/Langmo3d/" target="_blank" class="btn btn-emerald" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px; font-weight:800; background:linear-gradient(135deg, #059669 0%, #047857 100%); border:1px solid #34d399; color:#fff;" title="Mở trang Thực Tế Ảo 3D Không Gian Lăng Mộ">
+        🏛️ Xem 3D
+      </a>
+
+      <div class="divider"></div>
+
+      <button class="btn btn-cyan" onclick="openCoordinatesTableModal()" title="Bảng tra cứu tọa độ định vị chi tiết 32 ngôi mộ" style="font-weight:700;">
         🎯 Tọa Độ CAD
       </button>
       <button class="btn btn-amber" onclick="openQuantitiesModal()" title="Bảng thống kê khối lượng & dự toán toàn khu">
@@ -4237,7 +4497,7 @@
             <text x="12" y="62" fill="#fbbf24" font-size="9.5" font-weight="700">ĐỊA ĐIỂM: KHUÔN VIÊN ĐÁ TỰ NHIÊN NGUYÊN KHỐI • PHONG THỦY ÂM TRẠCH</text>
 
             <!-- Cột phải: Hạng mục, Tỉ lệ, Khổ giấy -->
-            <text id="titleBlockDrawingName" x="502" y="16" fill="#38bdf8" font-size="10.5" font-weight="900" letter-spacing="0.3">BẢN VẼ: MẶT BẰNG QUY HOẠCH 29 NGÔI MỘ (7.35m × 11.00m)</text>
+            <text id="titleBlockDrawingName" x="502" y="16" fill="#38bdf8" font-size="10.5" font-weight="900" letter-spacing="0.3">BẢN VẼ: MẶT BẰNG QUY HOẠCH 32 ngôi mộ (7.35m × 11.00m)</text>
             <text x="502" y="40" fill="#cbd5e1" font-size="9.5" font-weight="700">QUY CÁCH: 2 TRỤC THẦN ĐẠO • LỖ BAN 38.8cm</text>
             <text x="502" y="62" fill="#cbd5e1" font-size="9.5" font-weight="700">ĐÁ XANH NGUYÊN KHỐI</text>
             <text x="762" y="40" fill="#10b981" font-size="10" font-weight="800">TỈ LỆ: 1/50</text>
@@ -4337,7 +4597,7 @@
       <!-- DANH MỤC CÁC NGÔI MỘ TRONG BẢN VẼ -->
       <div class="right-section-title">
         <span>📋 DANH SÁCH MỘ</span>
-        <span id="graveCountBadge" style="color:#fbbf24; font-weight:800;">29 ngôi</span>
+        <span id="graveCountBadge" style="color:#fbbf24; font-weight:800;">32 ngôi</span>
       </div>
 
       <div class="graves-table-wrapper">
@@ -4644,7 +4904,7 @@
             </div>
             <div class="export-desc-item">
               <span class="desc-bullet">•</span>
-              <span><strong>Trang 2 (Bảng kê kỹ thuật):</strong> Bảng thống kê tọa độ X-Y, kích thước đá & móng âm 29 ngôi mộ, hướng dẫn thi công bê tông mác 250 và chữ ký: <em>Thiết kế: Thìn Đỗ (0888819957)</em>.</span>
+              <span><strong>Trang 2 (Bảng kê kỹ thuật):</strong> Bảng thống kê tọa độ X-Y, kích thước đá & móng âm 32 ngôi mộ, hướng dẫn thi công bê tông mác 250 và chữ ký: <em>Thiết kế: Thìn Đỗ (0888819957)</em>.</span>
             </div>
           </div>
         </div>
@@ -4663,7 +4923,7 @@
           <div class="export-desc-list">
             <div class="export-desc-item">
               <span class="desc-bullet">•</span>
-              <span><strong>Dữ liệu đầy đủ:</strong> Xuất trọn bộ bảng chỉ tiêu khoa học khu đất, bảng kê chi tiết 29 ngôi mộ (tọa độ X-Y, kích thước móng, cự ly cách tường, khoảng hở hàng xóm) và dự toán chi phí.</span>
+              <span><strong>Dữ liệu đầy đủ:</strong> Xuất trọn bộ bảng chỉ tiêu khoa học khu đất, bảng kê chi tiết 32 ngôi mộ (tọa độ X-Y, kích thước móng, cự ly cách tường, khoảng hở hàng xóm) và dự toán chi phí.</span>
             </div>
             <div class="export-desc-item">
               <span class="desc-bullet">•</span>
@@ -4771,7 +5031,7 @@
 
       <!-- Hàng công cụ thông minh Bác Học -->
       <div class="clippy-smart-toolbar">
-        <button type="button" class="clippy-tool-btn" onclick="smartInspectFengShui()" title="Phân tích toàn bộ 29 ngôi mộ theo Thước Lỗ Ban 38.8cm">
+        <button type="button" class="clippy-tool-btn" onclick="smartInspectFengShui()" title="Phân tích toàn bộ 32 ngôi mộ theo Thước Lỗ Ban 38.8cm">
           <span>🔬 Phong Thủy</span>
         </button>
         <button type="button" class="clippy-tool-btn" onclick="smartInspectFoundationClearance()" title="Kiểm tra 0 chạm móng và khe hở an toàn">
@@ -4925,13 +5185,13 @@
   </div>
 
 <!-- =================================================================== -->
-  <!-- MODAL BẢNG TRA CỨU TỌA ĐỘ CAD ĐỊNH VỊ 29 NGÔI MỘ (COORDINATES INSPECTOR) -->
+  <!-- MODAL BẢNG TRA CỨU TỌA ĐỘ CAD ĐỊNH VỊ 32 ngôi mộ (COORDINATES INSPECTOR) -->
   <!-- =================================================================== -->
   <div class="modal-overlay" id="modalCoordinatesTable">
     <div class="modal-box" style="max-width:820px;">
       <div class="modal-header">
         <div class="modal-title" style="display:flex; align-items:center; gap:6px;">
-          <span>🎯 BẢNG TRA CỨU TỌA ĐỘ CAD ĐỊNH VỊ 29 NGÔI MỘ (7.35m × 11.00m)</span>
+          <span>🎯 BẢNG TRA CỨU TỌA ĐỘ CAD ĐỊNH VỊ 32 ngôi mộ (7.35m × 11.00m)</span>
         </div>
         <button class="modal-close" onclick="closeCoordinatesTableModal()">&times;</button>
       </div>
@@ -5017,7 +5277,23 @@
       </button>
     </div>
 
+  
+  
+    <!-- BADGE TỌA ĐỘ CHÍNH XÁC BAY THEO CON TRỎ CHUỘT THỜI GIAN THỰC -->
+    <div id="cursorCoordinateBadge" class="cursor-coord-badge">
+      <div class="coord-primary">
+        <span>📍</span>
+        <span id="badgeCoordText">X: 0.0 cm • Y: 0.0 cm</span>
+      </div>
+      <div class="coord-secondary" id="badgeCoordMeter">Quy hoạch: 0.00m × 0.00m</div>
+      <div class="coord-target" id="badgeHoverTarget" style="display:none;"></div>
+    </div>
+  </div>
+  <!-- =================================================================== -->
+  <!-- SCRIPT 2D CAD ENGINE (THI CÔNG & QUY HOẠCH 32 ngôi mộ)               -->
+  <!-- =================================================================== -->
   <script>
+
     /* =====================================================================
        THIẾT KẾ QUY HOẠCH LĂNG MỘ ĐÁ GIA TỘC - THÌN ĐỖ PHÁT TRIỂN (0888819957)
        PHIÊN BẢN v3.5 PRO MASTER CAD:
@@ -5033,6 +5309,7 @@
     let mongOffset = 10; // Móng mộ căn cứ vào đá: thêm 20cm so với tổng chiều đá (mỗi mép ngoài đá 10cm) // Móng mộ mỗi chiều cộng thêm so với đá là 20cm (mỗi bên mở rộng 10cm)
     let showStoneGraves = true; // Tùy chọn hiển thị lớp mộ đá khối
     let showGraveCoords = false; // Tùy chọn hiển thị tọa độ X-Y trên thân mộ
+    let showAllLabels = false; // MẶC ĐỊNH ẨN NHÃN CHỮ; CHỈ HIỆN NHÃN KHI NHẤP VÀO ĐỐI TƯỢNG (THEO YÊU CẦU)
     let isFoundationMode = false; // Chế độ mặt bằng móng thi công
     let isDraggingLangTho = false;
     let langThoOriginalPos = { x: (735 - 520) / 2, y: 5 };
@@ -5163,7 +5440,7 @@
     // MẪU ĐẶC BIỆT CHUẨN MỰC: 28 MỘ (5 HÀNG CÁCH ĐỀU 25CM THEO HÀNG DỌC)
             // =====================================================================
     // =====================================================================
-    // MẪU QUY HOẠCH CHUẨN MỰC CHUYÊN GIA: 7.35m × 11.00m (29 NGÔI MỘ - KHE 10cm, TRỤC THẦN ĐẠO 61.5cm)
+    // MẪU QUY HOẠCH CHUẨN MỰC CHUYÊN GIA: 7.35m × 11.00m (32 ngôi mộ - KHE 10cm, TRỤC THẦN ĐẠO 61.5cm)
     // - Hàng 1 (6 mộ): Mộ 01 - 02 (khe 10cm); Mộ Bà - Mộ Ông (khe 10cm); Mộ 05 - 06 (khe 10cm).
     //                  Đầu Y=187cm cách lăng 80cm làm sân lễ bái, chân dóng phẳng hàng Y=334cm.
     // - Hai Trục Thần Đạo song hành 2 bên: Căn thẳng đều để trục thần đạo có bề rộng đồng nhất tối ưu 61.5cm!
@@ -5177,7 +5454,7 @@
     // - Móng âm: mongOffset = 10 (móng tăng 20cm so với đá cho tất cả các ngôi mộ, vỉa móng 10cm).
     // =====================================================================
     // =====================================================================
-      // MẪU QUY HOẠCH CHUẨN MỰC CHUYÊN GIA: 7.35m × 11.00m (29 NGÔI MỘ)
+      // MẪU QUY HOẠCH CHUẨN MỰC CHUYÊN GIA: 7.35m × 11.00m (32 ngôi mộ)
       // - ĐẤT & MÓNG: 7.35m × 11.00m (735 × 1100 cm). Móng giằng BTCT bao quanh.
       // - RÀO ĐÁ: Thụt vào trong 5cm mỗi chiều -> Phủ bì rào đá 7.25m × 10.90m (725 × 1090 cm).
       // - LĂNG THỜ: Tựa vào rào đá sau (Y = 5cm), Khám giữa lồi ra 107cm (Y = 5..112cm), Sân lễ bái rộng đúng 80cm (Y = 112..192cm).
@@ -5190,9 +5467,36 @@
       //                Cách Hàng 5 đúng 63cm (Cung Vượng Đinh), cách rào đá trước 85cm (Cung Tiến Bảo).
       // - MỘ BÉ GÓC DƯỚI TRÁI: 50×80cm (X = 40.0, Y = 980.0..1060.0cm), cách rào đá trái 15cm, cách rào trước 15cm.
       // =====================================================================
+      // =====================================================================
+      // MẪU QUY HOẠCH CHUẨN MỰC CHUYÊN GIA: 7.35m × 11.00m (32 ngôi mộ)
+      // - HÀNG 1 (6 MỘ): 01, 02, BÀ, ÔNG, 05, 06 (Dóng phẳng chân Y = 339cm)
+      // - HÀNG 2 (6 MỘ): 07, 08, 09, 10, 11, 12 (Cách Hàng 1 đúng 30cm đá)
+      // - HÀNG 3 (6 MỘ): 13, 14, 15, 16, 17, 18 (Toàn bộ 61×107cm, cách Hàng 2 đúng 30cm đá)
+      // - HÀNG 4 (6 MỘ): 19, 20, 21, 22, 23, 24 (Toàn bộ 61×107cm, cách Hàng 3 đúng 30cm đá)
+      // - HÀNG 5 (4 MỘ):
+      //     + Cặp trái: Mộ 25 (X=60), Mộ 26 (X=131)
+      //     + Cặp giữa (thêm ở dưới Mộ 21 & Mộ 22): Mộ 27 (X=301.5), Mộ 28 (X=372.5)
+      //     + Bên phải: ĐỂ TRỐNG hoàn toàn đón gió & lối đi từ cổng vào.
+      // - HÀNG 6 (3 MỘ):
+      //     + Cặp bên phải (chuyển xuống hàng dưới và thêm 1 mộ): Mộ 29 (X=543), Mộ 30 (X=614)
+      //     + Mộ bé góc trái cửa vào: Kích thước 47×89cm, cách tường trái 8cm, cách tường trước 8cm.
+      // =====================================================================
+      // =====================================================================
+      // MẪU QUY HOẠCH CHUẨN MỰC CHUYÊN GIA: 7.35m × 11.00m (32 NGÔI MỘ)
+      // - HÀNG 1 (6 MỘ): 01, 02, BÀ, ÔNG, 05, 06 (Dóng phẳng chân Y = 339cm)
+      // - HÀNG 2 (6 MỘ): 07, 08, 09, 10, 11, 12 (Cách Hàng 1 đúng 30cm đá)
+      // - HÀNG 3 (6 MỘ): 13, 14, 15, 16, 17, 18 (Toàn bộ 61×107cm, cách Hàng 2 đúng 30cm đá)
+      // - HÀNG 4 (6 MỘ): 19, 20, 21, 22, 23, 24 (Toàn bộ 61×107cm, cách Hàng 3 đúng 30cm đá)
+      // - HÀNG 5 (5 MỘ):
+      //     + Cặp trái: Mộ 25 (X=60), Mộ 26 (X=131)
+      //     + Cặp giữa: Mộ 27 (X=301.5), Mộ 28 (X=372.5) dưới Mộ 21 & Mộ 22
+      //     + Ngôi bên phải: Mộ 29 (X=614, Y=800) ở hàng dọc bên phải giữa Mộ 24 và Mộ 31
+      // - HÀNG 6 (3 MỘ):
+      //     + Cặp bên phải hàng dưới: Mộ 30 (X=543), Mộ 31 (X=614)
+      //     + Mộ bé góc trái cửa vào: Kích thước 47×89cm, cách tường trái 8cm, cách tường trước 8cm.
+      // =====================================================================
       const PRESET_735_1100_PDF2026 = [
         // HÀNG 1 (6 MỘ): Sân lễ bái trước lăng rộng đúng 80cm (Y = 112..192). Chân hàng phẳng dóng Y = 339cm
-        // Khe mép đá cặp 1-2, Bà-Ông, 5-6 đều đúng 10cm; Tường rào 2 bên cách 15cm; 2 Trục Thần Đạo rộng đúng 61.5cm tối ưu!
         { id: 'm1_01', name: 'MỘ 01', row: 1, type: 'con', x: 40.0, y: 212.0, width: 81, height: 127, locked: false },
         { id: 'm1_02', name: 'MỘ 02', row: 1, type: 'con', x: 131.0, y: 212.0, width: 81, height: 127, locked: false },
         { id: 'm1_03', name: 'MỘ BÀ', row: 1, type: 'ongba', x: 273.5, y: 192.0, width: 89, height: 147, locked: false },
@@ -5224,14 +5528,20 @@
         { id: 'm4_23', name: 'MỘ 23', row: 4, type: 'chau', x: 543.0, y: 663.0, width: 61, height: 107, locked: false },
         { id: 'm4_24', name: 'MỘ 24', row: 4, type: 'chau', x: 614.0, y: 663.0, width: 61, height: 107, locked: false },
 
-        // HÀNG 5 (4 MỘ): Toàn bộ 61x107cm. Cách Hàng 4 đúng 30cm đá (Y = 800..907cm). Để trống sau cuốn thư (khoảng mở 351cm)
+        // HÀNG 5 (5 MỘ): Cách Hàng 4 đúng 30cm đá (Y = 800..907cm).
         { id: 'm5_25', name: 'MỘ 25', row: 5, type: 'chau', x: 60.0, y: 800.0, width: 61, height: 107, locked: false },
         { id: 'm5_26', name: 'MỘ 26', row: 5, type: 'chau', x: 131.0, y: 800.0, width: 61, height: 107, locked: false },
-        { id: 'm5_27', name: 'MỘ 27', row: 5, type: 'chau', x: 543.0, y: 800.0, width: 61, height: 107, locked: false },
-        { id: 'm5_28', name: 'MỘ 28', row: 5, type: 'chau', x: 614.0, y: 800.0, width: 61, height: 107, locked: false },
+        { id: 'm5_27', name: 'MỘ 27', row: 5, type: 'chau', x: 301.5, y: 800.0, width: 61, height: 107, locked: false },
+        { id: 'm5_28', name: 'MỘ 28', row: 5, type: 'chau', x: 372.5, y: 800.0, width: 61, height: 107, locked: false },
+        // Ngôi mộ mới thêm vào giữa Mộ 24 và Mộ 31 ở hàng dọc bên phải (cách Mộ 24 đúng 30cm, cách Mộ 31 đúng 30cm)
+        { id: 'm5_29', name: 'MỘ 29', row: 5, type: 'chau', x: 614.0, y: 800.0, width: 61, height: 107, locked: false },
 
-        // MỘ BÉ GÓC DƯỚI BÊN TRÁI (MỘ THỨ 29): 50×80cm (Móng 70×100cm), cách rào đá trái 15cm, cách rào trước 15cm
-        { id: 'm_nho_goc', name: 'MỘ BÉ', row: 6, type: 'monho', x: 40.0, y: 980.0, width: 50, height: 80, locked: false }
+        // HÀNG 6 (3 MỘ): Cặp mộ bên phải chuyển xuống hàng dưới + Mộ bé ở góc trái cửa vào
+        { id: 'm6_30', name: 'MỘ 30', row: 6, type: 'chau', x: 543.0, y: 937.0, width: 61, height: 107, locked: false },
+        { id: 'm6_31', name: 'MỘ 31', row: 6, type: 'chau', x: 614.0, y: 937.0, width: 61, height: 107, locked: false },
+
+        // MỘ BÉ GÓC DƯỚI BÊN TRÁI CỬA VÀO: Kích thước 47×89cm, cách tường trái 8cm (X = 25+8 = 33.0cm), cách tường trước 8cm (Y = 1075-8-89 = 978.0cm)
+        { id: 'm_nho_goc', name: 'MỘ BÉ', row: 6, type: 'monho', x: 33.0, y: 978.0, width: 47, height: 89, locked: false }
       ];
 
     const PRESET_735_1100 = PRESET_735_1100_PDF2026;
@@ -5332,7 +5642,7 @@
     function getCadSnapPoints() {
       const pts = [];
 
-      // A. TOÀN BỘ 29 NGÔI MỘ: 4 GÓC THÂN, 1 TIM, 4 TRUNG ĐIỂM CẠNH & 4 GÓC MÓNG ÂM
+      // A. TOÀN BỘ 32 ngôi mộ: 4 GÓC THÂN, 1 TIM, 4 TRUNG ĐIỂM CẠNH & 4 GÓC MÓNG ÂM
       if (Array.isArray(graves)) {
         graves.forEach(g => {
           const hw = g.width / 2;
@@ -6083,6 +6393,7 @@
               fill="none" stroke="rgba(251, 191, 36, 0.45)" stroke-width="0.8" rx="2" pointer-events="none"/>
             
             <!-- Chữ nhãn cuốn thư rõ ràng, không tràn -->
+            ${(showAllLabels || isSel) ? `
             <text id="text_cuonThu" x="${daX + daW/2}" y="${daY + 13}"
               fill="#ffffff" font-size="9.5" font-weight="800" text-anchor="middle" letter-spacing="0.4" pointer-events="none">
               CUỐN THƯ ĐÁ (${daW}×${daH})
@@ -6090,7 +6401,7 @@
             <text id="text_cuonThu_sub" x="${daX + daW/2}" y="${daY + 28}"
               fill="#fbbf24" font-size="7.5" font-family="'Consolas', monospace" font-weight="700" text-anchor="middle" pointer-events="none">
               Móng: ${mongW}×${mongH} | Vượng Đinh
-            </text>
+            </text>` : ''}
           </g>
         `;
 
@@ -6234,6 +6545,20 @@
     }
 
     // VẼ CÁC NGÔI MỘ (HỖ TRỢ MÓNG +20CM VÀ CHẾ ĐỘ MÓNG THI CÔNG)
+    
+    function toggleAllLabels() {
+      showAllLabels = !showAllLabels;
+      const btn = document.getElementById('btnToggleAllLabels');
+      if (btn) {
+        btn.textContent = showAllLabels ? '🏷️ Nhãn Chữ (Bật)' : '🏷️ Nhãn Chữ (Tắt)';
+        btn.style.color = showAllLabels ? '#38bdf8' : '';
+        btn.style.borderColor = showAllLabels ? '#38bdf8' : '';
+      }
+      renderGraves();
+      renderCuonThu();
+      showToast(showAllLabels ? 'Đã hiển thị tất cả nhãn chữ trên các ngôi mộ' : 'Đã ẩn nhãn chữ (nhấn vào từng ngôi mộ để xem nhãn)');
+    }
+
     function renderGraves() {
       const mongG = document.getElementById('mongAmLayer');
       const graveG = document.getElementById('gravesLayer');
@@ -6304,6 +6629,7 @@
             <title>Mộ: ${g.name} (${g.width}×${g.height}cm) - Móng: ${mongW}×${mongH}cm</title>
             <rect id="rect_${g.id}" x="${g.x}" y="${g.y}" width="${g.width}" height="${g.height}"
               fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}" rx="3"/>
+            ${(showAllLabels || isSelected) ? `
             <text id="text_name_${g.id}" x="${g.x + g.width/2}" y="${g.width <= 55 ? (g.y + 20) : (g.y + 25)}"
               fill="${g.type === 'ongba' ? '#34d399' : (isCon81 ? '#fef08a' : (g.type === 'cho' ? '#c084fc' : '#ffffff'))}"
               font-size="${g.width <= 55 ? 7.5 : (g.width < 75 ? 9.5 : 10.5)}" font-weight="800" text-anchor="middle" pointer-events="none">
@@ -6323,6 +6649,7 @@
               fill="#38bdf8" font-size="${g.width <= 55 ? 6.8 : 8.2}" font-family="'Consolas', monospace" font-weight="800" text-anchor="middle" pointer-events="none">
               X:${g.x.toFixed(0)}, Y:${g.y.toFixed(0)}
             </text>` : ''}
+          ` : ''}
           </g>
         `;
 
@@ -8333,10 +8660,10 @@
         fixedElements.cuonThu.x = cuonThu.x;
         fixedElements.cuonThu.y = 985;
         const drName = document.getElementById('titleBlockDrawingName');
-        if (drName) drName.textContent = 'BẢN VẼ: MẶT BẰNG QUY HOẠCH 29 NGÔI MỘ (7.35m × 11.00m)';
+        if (drName) drName.textContent = 'BẢN VẼ: MẶT BẰNG QUY HOẠCH 32 ngôi mộ (7.35m × 11.00m)';
         const prName = document.getElementById('titleBlockProjName');
         if (prName) prName.textContent = 'DỰ ÁN: QUY HOẠCH KHU LĂNG MỘ ĐÁ GIA TỘC (7.35m × 11.00m)';
-        showToast('Đã tải: ★ Mẫu Chuẩn PDF 2026 - 29 Ngôi Mộ (Từng Cặp Cách Nhau 10cm, Trục Thần Đạo 61.5cm)');
+        showToast('Đã tải: ★ Mẫu Chuẩn PDF 2026 - 32 ngôi mộ (Từng Cặp Cách Nhau 10cm, Trục Thần Đạo 61.5cm)');
       } else if (key === 'preset735_old') {
         siteWidth = 735;
         siteHeight = 1100;
@@ -8356,10 +8683,10 @@
         fixedElements.cuonThu.x = cuonThu.x;
         fixedElements.cuonThu.y = 960;
         const drName = document.getElementById('titleBlockDrawingName');
-        if (drName) drName.textContent = 'BẢN VẼ: MẶT BẰNG QUY HOẠCH 29 NGÔI MỘ (7.35m × 11.00m)';
+        if (drName) drName.textContent = 'BẢN VẼ: MẶT BẰNG QUY HOẠCH 32 ngôi mộ (7.35m × 11.00m)';
         const prName = document.getElementById('titleBlockProjName');
         if (prName) prName.textContent = 'DỰ ÁN: QUY HOẠCH KHU LĂNG MỘ ĐÁ GIA TỘC (7.35m × 11.00m)';
-        showToast('Đã tải: Mẫu Chuẩn Quy Hoạch 29 Ngôi Mộ (7.35m × 11.00m - Hai Trục Thần Đạo 61.5cm, Khe 10cm)');
+        showToast('Đã tải: Mẫu Chuẩn Quy Hoạch 32 ngôi mộ (7.35m × 11.00m - Hai Trục Thần Đạo 61.5cm, Khe 10cm)');
       } else if (key === 'rowReserve17') {
         quickApplyLayout(7.0, 11.0, 89, 147, 81, 127);
         showToast('Đã tải: Mẫu Tối Ưu 28 Mộ (5 Hàng - Trống cuối 1.7m, lối giữa 50cm)');
@@ -8686,6 +9013,19 @@
     });
 
     viewport.addEventListener('click', (evt) => {
+      // Khi nhấp vào vùng trống ngoài đối tượng, bỏ chọn để ẩn nhãn chữ (giữ bản vẽ gọn sạch)
+      if (!isMeasureMode && !isDragging) {
+        const t = evt.target;
+        if (t === viewport || t.id === 'cad-svg' || t.id === 'cad-viewport-g' || t.id === 'gridLayer' || t.id === 'siteLayer' || t.id === 'siteBackground') {
+          if (selectedGraveId !== null) {
+            selectedGraveId = null;
+            renderGraves();
+            renderCuonThu();
+            renderActiveGuides();
+            updateSidebarInspector();
+          }
+        }
+      }
       if (!isMeasureMode || isDraggingMeasureHandle || justFinishedMeasureDrag) return;
       const pt = getSvgCoordinates(evt);
 
@@ -8766,6 +9106,12 @@
 
     viewport.addEventListener('mouseleave', () => {
       renderSnapIndicator(null, null);
+      const badge = document.getElementById('cursorCoordinateBadge');
+      if (badge) badge.style.display = 'none';
+      const cLineH = document.getElementById('crosshairH');
+      const cLineV = document.getElementById('crosshairV');
+      if (cLineH) cLineH.style.display = 'none';
+      if (cLineV) cLineV.style.display = 'none';
     });
 
     // SỰ KIỆN DI CHUỘT: CẬP NHẬT TỨC THÌ REAL-TIME 60FPS
@@ -8783,8 +9129,88 @@
 
       const pt = getSvgCoordinates(evt);
 
-      if (pt.x >= 0 && pt.x <= siteWidth && pt.y >= 0 && pt.y <= siteHeight) {
-        document.getElementById('hudCursor').textContent = `X: ${(pt.x/100).toFixed(2)}m (${pt.x.toFixed(0)}cm) | Y: ${(pt.y/100).toFixed(2)}m (${pt.y.toFixed(0)}cm)`;
+      // CẬP NHẬT TỌA ĐỘ CHÍNH XÁC TẠI VỊ TRÍ CON TRỎ CHUỘT THỜI GIAN THỰC (FLOATING TRACKER BADGE)
+      const coordBadge = document.getElementById('cursorCoordinateBadge');
+      const vpElem = document.getElementById('viewport');
+      if (coordBadge && vpElem) {
+        const vpRect = vpElem.getBoundingClientRect();
+        const isInsideVp = (
+          evt.clientX >= vpRect.left && evt.clientX <= vpRect.right &&
+          evt.clientY >= vpRect.top && evt.clientY <= vpRect.bottom
+        );
+
+        if (isInsideVp) {
+          coordBadge.style.display = 'flex';
+          let badgeLeft = evt.clientX + 16;
+          let badgeTop = evt.clientY + 16;
+          if (badgeLeft + 220 > window.innerWidth) badgeLeft = evt.clientX - 225;
+          if (badgeTop + 85 > window.innerHeight) badgeTop = evt.clientY - 90;
+          coordBadge.style.left = badgeLeft + 'px';
+          coordBadge.style.top = badgeTop + 'px';
+
+          const inSite = (pt.x >= 0 && pt.x <= siteWidth && pt.y >= 0 && pt.y <= siteHeight);
+          const xCm = pt.x.toFixed(1);
+          const yCm = pt.y.toFixed(1);
+          const xM = (pt.x / 100).toFixed(2);
+          const yM = (pt.y / 100).toFixed(2);
+
+          document.getElementById('badgeCoordText').textContent = 'X: ' + xCm + 'cm • Y: ' + yCm + 'cm';
+          document.getElementById('badgeCoordMeter').textContent = inSite
+            ? 'Tọa độ CAD: ' + xM + 'm × ' + yM + 'm (Lọt rào Tả: ' + (pt.x - 25).toFixed(1) + 'cm)'
+            : '(Ngoài khuôn viên: ' + xM + 'm × ' + yM + 'm)';
+
+          // Phát hiện cấu kiện đang rê chuột qua
+          const targetEl = document.getElementById('badgeHoverTarget');
+          let hoverInfo = null;
+          if (inSite) {
+            if (pt.x >= langTho.x && pt.x <= langTho.x + langTho.width && pt.y >= langTho.y && pt.y <= langTho.y + langTho.height) {
+              hoverInfo = '🏛️ ' + langTho.name + ' (520×107cm)';
+            } else if (pt.x >= cuonThu.x && pt.x <= cuonThu.x + cuonThu.width && pt.y >= cuonThu.y && pt.y <= cuonThu.y + cuonThu.height) {
+              hoverInfo = '📜 ' + cuonThu.name + ' (147×20cm)';
+            } else {
+              const hGrave = graves.find(g => pt.x >= g.x && pt.x <= g.x + g.width && pt.y >= g.y && pt.y <= g.y + g.height);
+              if (hGrave) {
+                hoverInfo = '🪦 ' + hGrave.name + ' (' + hGrave.width + '×' + hGrave.height + 'cm • Hàng ' + hGrave.row + ')';
+              }
+            }
+          }
+
+          if (hoverInfo && targetEl) {
+            targetEl.style.display = 'flex';
+            targetEl.textContent = hoverInfo;
+          } else if (targetEl) {
+            targetEl.style.display = 'none';
+          }
+        } else {
+          coordBadge.style.display = 'none';
+        }
+      }
+
+      // CẬP NHẬT ĐƯỜNG GIÓNG CHỮ THẬP RETICLE TRÊN SVG
+      const cLineH = document.getElementById('crosshairH');
+      const cLineV = document.getElementById('crosshairV');
+      if (cLineH && cLineV) {
+        if (pt.x >= -50 && pt.x <= siteWidth + 50 && pt.y >= -50 && pt.y <= siteHeight + 50) {
+          cLineH.style.display = 'block';
+          cLineV.style.display = 'block';
+          cLineH.setAttribute('y1', pt.y);
+          cLineH.setAttribute('y2', pt.y);
+          cLineV.setAttribute('x1', pt.x);
+          cLineV.setAttribute('x2', pt.x);
+        } else {
+          cLineH.style.display = 'none';
+          cLineV.style.display = 'none';
+        }
+      }
+
+      // CẬP NHẬT THANH TRẠNG THÁI HUD Ở ĐÁY MÀN HÌNH
+      const hudEl = document.getElementById('hudCursor');
+      if (hudEl) {
+        if (pt.x >= 0 && pt.x <= siteWidth && pt.y >= 0 && pt.y <= siteHeight) {
+          hudEl.innerHTML = '<span style="color:#22d3ee; font-weight:800;">X: ' + pt.x.toFixed(1) + 'cm</span> <span style="color:#94a3b8;">(' + (pt.x/100).toFixed(2) + 'm)</span> <span style="margin:0 4px; color:#475569;">|</span> <span style="color:#22d3ee; font-weight:800;">Y: ' + pt.y.toFixed(1) + 'cm</span> <span style="color:#94a3b8;">(' + (pt.y/100).toFixed(2) + 'm)</span> <span style="margin:0 4px; color:#475569;">|</span> <span style="color:#fbbf24;">Cách Tả: ' + (pt.x - 25).toFixed(1) + 'cm, Tiền: ' + (1075 - pt.y).toFixed(1) + 'cm</span>';
+        } else {
+          hudEl.innerHTML = '<span style="color:#94a3b8;">Ngoài khuôn viên: X: ' + (pt.x/100).toFixed(2) + 'm | Y: ' + (pt.y/100).toFixed(2) + 'm</span>';
+        }
       }
 
       // BẮT ĐIỂM THÔNG MINH TRONG CHẾ ĐỘ THƯỚC ĐO
@@ -9244,7 +9670,7 @@
     }
 
     // =====================================================================
-    // TRANG 2 BẢN VẼ: BẢNG TỔNG HỢP THÔNG SỐ KỸ THUẬT & TỌA ĐỘ ĐỊNH VỊ 29 NGÔI MỘ
+    // TRANG 2 BẢN VẼ: BẢNG TỔNG HỢP THÔNG SỐ KỸ THUẬT & TỌA ĐỘ ĐỊNH VỊ 32 ngôi mộ
     // =====================================================================
     function renderPrintTechnicalSheet(mode = 'full') {
       const container = document.getElementById('printTechnicalSheet');
@@ -9334,7 +9760,7 @@
         `;
       }
 
-      // 3. TOÀN BỘ 29 NGÔI MỘ THEO THỰC TẾ
+      // 3. TOÀN BỘ 32 ngôi mộ THEO THỰC TẾ
       const sorted = [...graves].sort((a,b) => {
         if (a.row !== b.row) return a.row - b.row;
         return a.x - b.x;
@@ -9480,6 +9906,8 @@
       const prevFoundationMode = isFoundationMode;
       const prevShowStoneGraves = showStoneGraves;
       const prevShowGraveCoords = showGraveCoords;
+      const prevShowAllLabels = showAllLabels;
+      showAllLabels = true; // In PDF luôn hiển thị đầy đủ nhãn
 
       // 2. CẤU HÌNH XUẤT PDF KỸ THUẬT: sạch, đủ thông số, theo hiện trạng
       showGraveCoords = false;       // Không in tọa độ trên từng mộ (tránh chồng chữ)
@@ -9550,7 +9978,7 @@
         hatchPattern.appendChild(line);
       }
 
-      // Sinh bảng thống kê kỹ thuật Trang 2 theo dữ liệu thời gian thực lúc xuất PDF (Đầy đủ bảng tọa độ 29 ngôi mộ)
+      // Sinh bảng thống kê kỹ thuật Trang 2 theo dữ liệu thời gian thực lúc xuất PDF (Đầy đủ bảng tọa độ 32 ngôi mộ)
       renderPrintTechnicalSheet(mode);
 
       showToast(mode === 'foundation' ? '🖨️ Đang mở hộp thoại In / Lưu PDF Mặt Bằng Móng...' : '🖨️ Đang mở hộp thoại In / Lưu PDF Bản Vẽ Đầy Đủ...');
@@ -9571,6 +9999,9 @@
         isFoundationMode = prevFoundationMode;
         showStoneGraves = prevShowStoneGraves;
         showGraveCoords = prevShowGraveCoords;
+      showAllLabels = prevShowAllLabels;
+      renderGraves();
+      renderCuonThu();
         applyViewBox();
         renderAll();
       }
@@ -9865,7 +10296,7 @@
             4. <strong>Khoảng trống dự phòng 1.7m:</strong> Phía cuối hai bên cuốn thư chừa lại khoảng đất trống rộng ~1.7m để dự phòng quy hoạch thêm hàng mộ cho các thế hệ tương lai.
           </p>
 
-          <h2>CHƯƠNG III: BẢNG TỔNG HỢP DANH MỤC THÔNG SỐ 29 NGÔI MỘ</h2>
+          <h2>CHƯƠNG III: BẢNG TỔNG HỢP DANH MỤC THÔNG SỐ 32 ngôi mộ</h2>
           <table>
             <thead>
               <tr>
@@ -10276,7 +10707,7 @@
           startSpotlight(true);
         }
       }
-      // Tự động tải Mẫu Chuẩn PDF 2026 (29 ngôi mộ, từng cặp cách nhau đúng 10cm, Trục Thần Đạo 61.5cm)
+      // Tự động tải Mẫu Chuẩn PDF 2026 (32 ngôi mộ, từng cặp cách nhau đúng 10cm, Trục Thần Đạo 61.5cm)
       loadPreset('preset2026_pdf');
 
       applyViewBox();
@@ -10766,7 +11197,7 @@
           cat: 'mong',
           catLabel: '🏗️ Tải Trọng & Địa Chất',
           title: 'Tải Trọng Đá Nguyên Khối & Sức Chịu Tải Nền Đất',
-          desc: 'Đá xanh nguyên khối có khối lượng riêng <b>~2.700 kg/m³</b>. Toàn bộ khu lăng (lăng thờ 520cm, 29 ngôi mộ, cuốn thư và tường rào đá) có tổng khối lượng ước tính <b>~88.5 tấn</b>. Hệ móng giằng BTCT mác 250 liên kết khung cứng truyền lực đều xuống nền đất, ứng suất đáy móng tính toán chỉ đạt <b>~0.82 kg/cm²</b>, nhỏ hơn nhiều so với sức chịu tải đất thịt pha sét (R ≥ 1.5 kg/cm²), hệ số an toàn K = 2.4!',
+          desc: 'Đá xanh nguyên khối có khối lượng riêng <b>~2.700 kg/m³</b>. Toàn bộ khu lăng (lăng thờ 520cm, 32 ngôi mộ, cuốn thư và tường rào đá) có tổng khối lượng ước tính <b>~88.5 tấn</b>. Hệ móng giằng BTCT mác 250 liên kết khung cứng truyền lực đều xuống nền đất, ứng suất đáy móng tính toán chỉ đạt <b>~0.82 kg/cm²</b>, nhỏ hơn nhiều so với sức chịu tải đất thịt pha sét (R ≥ 1.5 kg/cm²), hệ số an toàn K = 2.4!',
           btnText: '🧮 Phân Tích Kết Cấu Móng',
           action: 'openStructuralAnalysisModal()'
         },
@@ -10877,7 +11308,7 @@
         catLabel: '☯️ Phong Thủy Âm Trạch',
         title: '18 Mộ Con Cháu 61×107cm (Cung Phú Quý)',
         desc: 'Kích thước <b>61cm</b> thuộc cung <b>Hoạnh Tài</b> (tiền tài bất ngờ) và <b>107cm</b> thuộc cung <b>Quý Tử</b>. Giúp các thế hệ cháu chắt đời sau công danh rạng rỡ, làm ăn phát đạt.',
-        btnText: '📊 Bật Bảng 29 Ngôi Mộ',
+        btnText: '📊 Bật Bảng 32 ngôi mộ',
         action: 'toggleSidebarRight()'
       },
 
@@ -11118,7 +11549,7 @@
         cat: 'bachoc',
         catLabel: '🎓 Bác Học Tri Thức',
         title: 'Đạo Hiếu Gia Tộc: Cội Nguồn Hưng Thịnh',
-        desc: '<i>"Cây có cội mới trổ cành xanh lá, nước có nguồn mới bủa khắp rạch sông"</i>. Khu lăng mộ 29 ngôi mộ quy tụ 4 thế hệ sum vầy, là biểu tượng ngời sáng của lòng hiếu đạo muôn đời.',
+        desc: '<i>"Cây có cội mới trổ cành xanh lá, nước có nguồn mới bủa khắp rạch sông"</i>. Khu lăng mộ 32 ngôi mộ quy tụ 4 thế hệ sum vầy, là biểu tượng ngời sáng của lòng hiếu đạo muôn đời.',
         btnText: '🌟 Soi Toàn Bộ Khu Đất',
         action: 'zoomFit()'
       },
@@ -11780,7 +12211,7 @@
     // CÁC TÍNH NĂNG THÔNG MINH BÁC HỌC (SMART TOOLS)
     // ============================================================
 
-    // 1. Soi toàn diện phong thủy 29 ngôi mộ
+    // 1. Soi toàn diện phong thủy 32 ngôi mộ
     function smartInspectFengShui() {
       const modal = document.getElementById('clippyInspectModal');
       const title = document.getElementById('clippyModalTitleText');
@@ -11791,7 +12222,7 @@
       body.innerHTML = `
         <div class="clippy-modal-item green">
           <strong>✅ KẾT QUẢ TỔNG QUAN: 100% ĐẠT CUNG ĐỎ ĐẠI CÁT!</strong><br>
-          Toàn bộ 29 ngôi mộ đều được chuẩn hóa chính xác theo Thước Lỗ Ban 38.8cm (Âm phần).
+          Toàn bộ 32 ngôi mộ đều được chuẩn hóa chính xác theo Thước Lỗ Ban 38.8cm (Âm phần).
         </div>
         <div class="clippy-modal-item gold">
           <strong>🟢 Mộ Ông & Mộ Bà (89 × 147cm):</strong><br>
@@ -12201,6 +12632,7 @@
         window.addEventListener('touchend', touchEnd);
       }, { passive: true });
     }
+  
   </script>
 </body>
 </html>
